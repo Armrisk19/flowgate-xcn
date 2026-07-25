@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta
     name="description"
-    content="Buy native XCN on the Onyx network using a credit or debit card through a secure third-party checkout."
+    content="A guided route to purchase XCN and move it to the Onyx network."
   />
   <meta name="theme-color" content="#070708" />
-  <title>FlowGate XCN — Buy XCN with Card</title>
+  <title>FlowGate XCN — Buy and Bridge XCN</title>
   <link rel="preconnect" href="https://thirdweb.com" />
   <link rel="stylesheet" href="./styles.css" />
 </head>
@@ -27,15 +27,12 @@
       </span>
     </a>
 
-    <a
-      class="explorer-link"
-      href="https://explorer.onyx.org"
-      target="_blank"
-      rel="noreferrer"
-    >
-      Onyx Explorer
-      <span aria-hidden="true">↗</span>
-    </a>
+    <nav class="top-nav" aria-label="Main navigation">
+      <a href="#routes">Buy route</a>
+      <a href="https://app.onyx.org/en/bridge" target="_blank" rel="noreferrer">
+        Official bridge ↗
+      </a>
+    </nav>
   </header>
 
   <main id="top">
@@ -43,44 +40,34 @@
       <div class="hero-copy">
         <div class="eyebrow">
           <span class="live-dot"></span>
-          Built for Onyx
+          Working guided route
         </div>
 
-        <h1>Buy XCN with your card.</h1>
+        <h1>Card to XCN.<br />Then onto Onyx.</h1>
         <p class="hero-text">
-          Connect your wallet, choose an amount, and purchase native XCN on the
-          Onyx network using the available card-on-ramp provider.
+          Direct card-to-native-XCN quotes are not currently available.
+          FlowGate now guides you through supported steps instead of showing
+          a dead checkout.
         </p>
 
         <div class="hero-actions">
-          <a class="primary-button" href="#buy">Buy XCN</a>
+          <a class="primary-button" href="#routes">Start card route</a>
           <a
             class="secondary-button"
-            href="https://thirdweb.com/onyx"
+            href="https://www.coinbase.com/how-to-buy/onyxcoin"
             target="_blank"
             rel="noreferrer"
           >
-            View network
+            Buy XCN directly
           </a>
         </div>
 
-        <div class="network-card" aria-label="Onyx network information">
-          <div>
-            <span>Network</span>
-            <strong>Onyx</strong>
-          </div>
-          <div>
-            <span>Chain ID</span>
-            <strong>327</strong>
-          </div>
-          <div>
-            <span>Asset</span>
-            <strong>XCN</strong>
-          </div>
-          <div>
-            <span>Delivery</span>
-            <strong>Your wallet</strong>
-          </div>
+        <div class="route-strip" aria-label="Card route summary">
+          <div><span>1</span><strong>Buy USDC</strong><small>Ethereum</small></div>
+          <i aria-hidden="true">→</i>
+          <div><span>2</span><strong>Swap to XCN</strong><small>Ethereum</small></div>
+          <i aria-hidden="true">→</i>
+          <div><span>3</span><strong>Bridge XCN</strong><small>Onyx</small></div>
         </div>
       </div>
 
@@ -94,60 +81,225 @@
       </div>
     </section>
 
-    <section class="buy-section" id="buy">
+    <section class="route-section" id="routes">
       <div class="section-heading">
         <div>
-          <span class="section-kicker">Secure checkout</span>
-          <h2>Purchase native XCN</h2>
+          <span class="section-kicker">Choose your route</span>
+          <h2>How do you want to pay?</h2>
         </div>
-        <span class="status-pill" id="widgetStatus">Ready</span>
       </div>
 
-      <div class="widget-shell">
-        <div class="widget-topbar">
-          <div class="window-dots" aria-hidden="true">
-            <span></span><span></span><span></span>
+      <div class="route-tabs" role="tablist" aria-label="Purchase routes">
+        <button class="route-tab active" id="cardTab" data-route="card" role="tab" aria-selected="true">
+          Credit or debit card
+        </button>
+        <button class="route-tab" id="directTab" data-route="direct" role="tab" aria-selected="false">
+          Buy XCN directly
+        </button>
+      </div>
+
+      <section class="route-panel active" id="cardRoute" data-panel="card">
+        <div class="route-intro">
+          <span class="route-badge">3 steps</span>
+          <div>
+            <h3>Card route through Ethereum</h3>
+            <p>
+              Buy Ethereum USDC with an available card provider, swap that USDC
+              to Ethereum XCN, then bridge XCN to Onyx.
+            </p>
           </div>
-          <span>Card → XCN → Your Onyx wallet</span>
         </div>
 
-        <iframe
-          id="buyWidget"
-          title="Buy XCN with a credit or debit card"
-          src="https://thirdweb.com/bridge/buy-widget?chain=327&paymentMethods=card&tokenEditable=false&theme=dark&currency=USD&showThirdwebBranding=true&title=Buy%20XCN&description=Purchase%20native%20XCN%20on%20the%20Onyx%20network"
-          width="100%"
-          height="780"
-          loading="eager"
-          allow="payment; clipboard-write; publickey-credentials-get"
-          referrerpolicy="strict-origin-when-cross-origin"
-        ></iframe>
-      </div>
+        <article class="step-card" data-step="1">
+          <div class="step-header">
+            <span class="step-number">01</span>
+            <div>
+              <span class="step-label">Card purchase</span>
+              <h3>Buy USDC on Ethereum</h3>
+            </div>
+            <button class="complete-button" type="button" data-complete="1">Mark complete</button>
+          </div>
 
-      <div class="trust-grid">
-        <article>
-          <span class="icon">01</span>
-          <h3>Connect</h3>
-          <p>Use the wallet that should receive your XCN.</p>
-        </article>
-        <article>
-          <span class="icon">02</span>
-          <h3>Pay</h3>
-          <p>Choose an available card provider and complete its checkout.</p>
-        </article>
-        <article>
-          <span class="icon">03</span>
-          <h3>Receive</h3>
-          <p>Native XCN is routed to your wallet on Onyx.</p>
-        </article>
-      </div>
+          <div class="step-copy">
+            <p>
+              Connect the wallet that will receive the USDC. In the widget,
+              select <strong>Card</strong> as the payment method and confirm the
+              receiving token says <strong>USDC on Ethereum</strong>.
+            </p>
+            <div class="warning-line">
+              Credit-card acceptance depends on the on-ramp provider and your
+              card issuer. Debit cards are usually more widely supported.
+            </div>
+          </div>
 
-      <div class="notice">
-        <strong>Important:</strong>
-        FlowGate never receives or stores card details. Purchases are processed
-        by third-party providers. Availability, fees, limits, supported cards,
-        and identity verification depend on the provider and your location.
-        Always confirm the destination network is <strong>Onyx</strong> and the
-        asset is <strong>XCN</strong> before paying.
+          <div class="widget-shell">
+            <div class="widget-topbar">
+              <div class="window-dots" aria-hidden="true">
+                <span></span><span></span><span></span>
+              </div>
+              <span>Card → Ethereum USDC</span>
+            </div>
+            <iframe
+              title="Buy USDC on Ethereum with a card"
+              src="https://thirdweb.com/bridge/widget?outputCurrency=0xA0b86991c6218b36c1d19d4a2e9eb0ce3606eb48&outputChain=1&currency=USD&theme=dark&persistTokenSelections=false&showThirdwebBranding=true"
+              width="100%"
+              height="760"
+              loading="eager"
+              allow="payment; clipboard-write; publickey-credentials-get"
+              referrerpolicy="strict-origin-when-cross-origin"
+            ></iframe>
+          </div>
+        </article>
+
+        <article class="step-card" data-step="2">
+          <div class="step-header">
+            <span class="step-number">02</span>
+            <div>
+              <span class="step-label">Onyx Swap</span>
+              <h3>Swap Ethereum USDC to XCN</h3>
+            </div>
+            <button class="complete-button" type="button" data-complete="2">Mark complete</button>
+          </div>
+
+          <div class="step-grid">
+            <div class="step-copy">
+              <ol>
+                <li>Open the official Onyx Swap.</li>
+                <li>Select the <strong>Ethereum</strong> network tab.</li>
+                <li>Set <strong>From: USDC</strong>.</li>
+                <li>Set <strong>To: XCN</strong>.</li>
+                <li>Review the quote, network fee, and minimum received.</li>
+              </ol>
+
+              <a
+                class="primary-button wide-button"
+                href="https://app.onyx.org/en/swap"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Open official Onyx Swap ↗
+              </a>
+            </div>
+
+            <div class="contract-box">
+              <span>Official Ethereum XCN contract</span>
+              <code id="xcnContract">0xA2cd3D43c775978A96BdBf12d733D5A1ED94fb18</code>
+              <button class="copy-button" type="button" data-copy="xcnContract">
+                Copy contract
+              </button>
+              <small>Use this only when a wallet asks you to verify the Ethereum XCN token.</small>
+            </div>
+          </div>
+        </article>
+
+        <article class="step-card" data-step="3">
+          <div class="step-header">
+            <span class="step-number">03</span>
+            <div>
+              <span class="step-label">Official bridge</span>
+              <h3>Bridge XCN from Ethereum to Onyx</h3>
+            </div>
+            <button class="complete-button" type="button" data-complete="3">Mark complete</button>
+          </div>
+
+          <div class="step-grid">
+            <div class="step-copy">
+              <ol>
+                <li>Open the official Onyx Bridge.</li>
+                <li>Set <strong>From: Ethereum</strong>.</li>
+                <li>Set <strong>To: Onyx</strong>.</li>
+                <li>Select <strong>XCN</strong>.</li>
+                <li>Connect the same wallet and bridge a small test amount first.</li>
+              </ol>
+
+              <a
+                class="primary-button wide-button"
+                href="https://app.onyx.org/en/bridge"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Open official Onyx Bridge ↗
+              </a>
+            </div>
+
+            <div class="network-box">
+              <div><span>Destination</span><strong>Onyx</strong></div>
+              <div><span>Chain ID</span><strong>327</strong></div>
+              <div><span>Native asset</span><strong>XCN</strong></div>
+              <div><span>Estimated bridge</span><strong>Shown by Onyx</strong></div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="route-panel" id="directRoute" data-panel="direct" hidden>
+        <div class="route-intro">
+          <span class="route-badge">Fewer steps</span>
+          <div>
+            <h3>Buy XCN directly on an exchange</h3>
+            <p>
+              Coinbase currently lists XCN in the United States. Its published
+              instructions support a bank account, debit card, wire transfer,
+              and region-dependent PayPal. Coinbase states that credit cards
+              cannot currently be used to purchase XCN.
+            </p>
+          </div>
+        </div>
+
+        <div class="direct-grid">
+          <article class="direct-card">
+            <span>Step 1</span>
+            <h3>Buy XCN</h3>
+            <p>Purchase Onyxcoin using an approved Coinbase payment method.</p>
+            <a
+              class="primary-button wide-button"
+              href="https://www.coinbase.com/how-to-buy/onyxcoin"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Open Coinbase XCN ↗
+            </a>
+          </article>
+
+          <article class="direct-card">
+            <span>Step 2</span>
+            <h3>Withdraw on Ethereum</h3>
+            <p>
+              Send XCN to a self-custody Ethereum wallet you control. Carefully
+              verify the selected withdrawal network and address.
+            </p>
+          </article>
+
+          <article class="direct-card">
+            <span>Step 3</span>
+            <h3>Bridge to Onyx</h3>
+            <p>Use the official Onyx Bridge to move Ethereum XCN onto Onyx.</p>
+            <a
+              class="secondary-button wide-button"
+              href="https://app.onyx.org/en/bridge"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Open Onyx Bridge ↗
+            </a>
+          </article>
+        </div>
+      </section>
+
+      <div class="safety-panel">
+        <div>
+          <span class="safety-icon">!</span>
+          <div>
+            <h3>Before you confirm anything</h3>
+            <p>
+              Start with a small test. Verify every wallet address, token,
+              network, provider fee, swap quote, and bridge destination.
+              FlowGate does not receive funds, store card details, or guarantee
+              provider availability.
+            </p>
+          </div>
+        </div>
+        <button id="resetProgress" class="text-button" type="button">Reset checklist</button>
       </div>
     </section>
   </main>
@@ -155,9 +307,9 @@
   <footer>
     <div>
       <strong>FlowGate XCN</strong>
-      <span>Non-custodial access to Onyx.</span>
+      <span>Non-custodial guided access to Onyx.</span>
     </div>
-    <p>Not affiliated with Onyx DAO or thirdweb. No investment advice.</p>
+    <p>Independent project. Not affiliated with Onyx, thirdweb, or Coinbase.</p>
   </footer>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>

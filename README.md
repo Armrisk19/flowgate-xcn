@@ -1,61 +1,66 @@
-# FlowGate XCN
+# FlowGate XCN v2
 
-A lightweight, mobile-friendly page that embeds thirdweb's Buy Widget with
-native XCN on the Onyx network selected.
+FlowGate XCN is a static, non-custodial guide for purchasing XCN and moving it
+to the Onyx network.
 
-## What it does
+## Why v2 exists
 
-- Sets the destination network to Onyx (chain ID `327`)
-- Sets the output asset to the network's native token, XCN
-- Shows card checkout only
-- Sends purchased XCN to the wallet connected inside the checkout
-- Does not store card details or custody user funds
+The original page attempted to route a card payment directly to native XCN on
+Onyx. That route returned `No quotes available`.
 
-## Deploy with GitHub and Vercel
+This version removes that dead route and provides two realistic paths:
 
-1. Create a new GitHub repository named `flowgate-xcn`.
-2. Upload `index.html`, `styles.css`, `app.js`, and `vercel.json`.
-3. Open Vercel and import the GitHub repository.
-4. Leave the framework preset as `Other`.
-5. Deploy.
+### Card route
 
-No environment variables, build command, package manager, or custom smart
-contract are required for this first version.
+1. Buy USDC on Ethereum using thirdweb's Bridge Widget and an available card
+   provider.
+2. Use the official Onyx Swap on Ethereum to exchange USDC for XCN.
+3. Use the official Onyx Bridge to move XCN from Ethereum to Onyx.
 
-## Test carefully
+### Direct exchange route
 
-Before paying:
+1. Buy XCN directly on Coinbase using an approved payment method.
+2. Withdraw XCN to a self-custody Ethereum wallet.
+3. Use the official Onyx Bridge to move XCN onto Onyx.
 
-- Confirm the checkout shows `Onyx` as the destination network.
-- Confirm the receiving asset is native `XCN`.
-- Use a wallet you control.
-- Start with a small amount.
-- Review the provider's rate, fee, identity requirements, and final amount.
-- Confirm the transaction in the Onyx Explorer.
+Coinbase's published XCN page states that credit cards cannot currently be used
+to buy XCN directly. Its listed methods include bank account, debit card, wire,
+and region-dependent PayPal.
 
-## Important limitations
+## Verified configuration
 
-The actual card providers, fees, minimum purchase, geographic availability,
-supported cards, and identity-verification requirements are controlled by the
-on-ramp provider. A bank or card issuer may also decline crypto purchases.
+- Onyx chain ID: `327`
+- Native Onyx asset: `XCN`
+- Ethereum XCN contract:
+  `0xA2cd3D43c775978A96BdBf12d733D5A1ED94fb18`
+- Ethereum USDC contract:
+  `0xA0b86991c6218b36c1d19d4a2e9eb0ce3606eb48`
+- Official Onyx Swap: `https://app.onyx.org/en/swap`
+- Official Onyx Bridge: `https://app.onyx.org/en/bridge`
 
-## Technical configuration
+## Deploy the update
 
-The embedded widget currently uses:
+Replace the existing repository files with:
+
+- `index.html`
+- `styles.css`
+- `app.js`
+- `README.md`
+- `vercel.json`
+
+Commit the update. Vercel should redeploy automatically.
+
+Suggested commit message:
 
 ```text
-https://thirdweb.com/bridge/buy-widget
-  ?chain=327
-  &paymentMethods=card
-  &tokenEditable=false
-  &theme=dark
-  &currency=USD
+Fix XCN purchase route
 ```
 
-The site listens only to messages from `https://thirdweb.com` for success,
-error, and cancellation status.
+## Important
 
-## Disclaimer
-
-This starter is not affiliated with Onyx DAO or thirdweb. It is not investment
-advice. Review all purchase information before confirming.
+- The project never stores card details.
+- It does not custody user funds.
+- Card availability, fees, KYC, limits, and supported regions are controlled by
+  the selected on-ramp provider.
+- Credit-card acceptance depends on the provider and issuer.
+- Users should test with a small amount first.
