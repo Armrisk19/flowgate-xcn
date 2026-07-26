@@ -1,66 +1,149 @@
-# FlowGate XCN v2
+# FlowGate XCN v5 — Clear Purchase & Privacy Mode
 
-FlowGate XCN is a static, non-custodial guide for purchasing XCN and moving it
-to the Onyx network.
+This release adds lawful, disclosed monetization architecture without secretly
+inflating crypto prices or taking custody of customer money.
 
-## Why v2 exists
+## What is immediately built
 
-The original page attempted to route a card payment directly to native XCN on
-Onyx. That route returned `No quotes available`.
+- Card and crypto route interface
+- XCN and Onyx guidance
+- Public fee schedule and legal disclosure pages
+- FlowGate Plus checkout priced at 9.99 USDC on Base
+- FlowGate Plus fee estimator and local receipt tools
+- White-label pricing and inquiry workflow
+- Affiliate/partner link slots
+- Revenue status display
+- Fallback widgets so the site still functions before a thirdweb client ID is added
 
-This version removes that dead route and provides two realistic paths:
+## Revenue wallet
 
-### Card route
+`config.js` currently uses this previously designated EVM project receiving
+wallet:
 
-1. Buy USDC on Ethereum using thirdweb's Bridge Widget and an available card
-   provider.
-2. Use the official Onyx Swap on Ethereum to exchange USDC for XCN.
-3. Use the official Onyx Bridge to move XCN from Ethereum to Onyx.
+`0x2112CcdBe033577A86189DD8d8ccC325F9F746ab`
 
-### Direct exchange route
+VERIFY THAT YOU CONTROL THIS ADDRESS BEFORE DEPLOYING. Change it in `config.js`
+if FlowGate should use a different treasury wallet.
 
-1. Buy XCN directly on Coinbase using an approved payment method.
-2. Withdraw XCN to a self-custody Ethereum wallet.
-3. Use the official Onyx Bridge to move XCN onto Onyx.
+## Activate swap revenue
 
-Coinbase's published XCN page states that credit cards cannot currently be used
-to buy XCN directly. Its listed methods include bank account, debit card, wire,
-and region-dependent PayPal.
+thirdweb's official documentation says a developer fee can be configured on
+crypto-to-crypto swaps.
 
-## Verified configuration
+1. Create a thirdweb project.
+2. Copy the public client ID.
+3. Paste it into `config.js` as `thirdwebClientId`.
+4. In thirdweb, open:
+   `Project > Project Settings > Payments > Configure > Settings`
+5. Set the developer fee to `1.25%`.
+6. Ensure the fee recipient is the FlowGate revenue wallet.
+7. Redeploy.
 
-- Onyx chain ID: `327`
-- Native Onyx asset: `XCN`
-- Ethereum XCN contract:
-  `0xA2cd3D43c775978A96BdBf12d733D5A1ED94fb18`
-- Ethereum USDC contract:
-  `0xA0b86991c6218b36c1d19d4a2e9eb0ce3606eb48`
-- Official Onyx Swap: `https://app.onyx.org/en/swap`
-- Official Onyx Bridge: `https://app.onyx.org/en/bridge`
+The public fee disclosure and dashboard setting must match.
 
-## Deploy the update
+## Activate card/on-ramp revenue
 
-Replace the existing repository files with:
+The generic thirdweb on-ramp does not pay FlowGate a fee. To earn on card
+purchases:
 
-- `index.html`
-- `styles.css`
-- `app.js`
-- `README.md`
-- `vercel.json`
+1. Register the business and prepare legal/KYB information.
+2. Apply to MoonPay or Transak as a partner.
+3. Complete KYB and provider review.
+4. Agree to commercial terms.
+5. Configure the provider-supported partner fee.
+6. Replace or configure the card widget using the approved production API key.
+7. Set `onrampPartnerFeeActive: true` only after the fee is contractually active.
 
-Commit the update. Vercel should redeploy automatically.
+The site displays a planned 1.50% partner fee. Do not charge or advertise it as
+active before provider approval.
 
-Suggested commit message:
+## Activate affiliate revenue
 
-```text
-Fix XCN purchase route
-```
+Apply to Coinbase or another approved affiliate program and paste the tracked
+URL into `config.js`.
 
-## Important
+Never label an ordinary untracked link as an affiliate link.
 
-- The project never stores card details.
-- It does not custody user funds.
-- Card availability, fees, KYC, limits, and supported regions are controlled by
-  the selected on-ramp provider.
-- Credit-card acceptance depends on the provider and issuer.
-- Users should test with a small amount first.
+## FlowGate Plus
+
+The website sells a separate digital toolkit for `9.99 USDC` on Base. The
+checkout is configured to pay the revenue wallet in `config.js`.
+
+The toolkit does not sell crypto. It unlocks:
+
+- Fee estimator
+- Local receipt storage
+- CSV exports
+- Transaction planning tools
+
+Unlocking is stored in the buyer's browser. This is sufficient for a starter,
+but a production version should verify payment through a backend webhook and
+bind access to an account or wallet.
+
+## White-label sales
+
+Prices displayed:
+
+- Starter: $499
+- Pro: $999
+- Network: $2,499
+
+Add a real `supportEmail` in `config.js` before accepting orders. Use a written
+scope, delivery agreement, refund policy, and payment schedule for every custom
+sale.
+
+## Important legal structure
+
+Do not:
+
+- Secretly inflate the displayed market price
+- Claim FlowGate is executing at one price while keeping an undisclosed spread
+- Receive customer dollars and personally deliver crypto
+- Hold card details, private keys, or seed phrases
+- Turn on fees that are not supported by the provider contract
+- Claim guaranteed returns or guaranteed delivery
+
+Keep FlowGate non-custodial:
+
+- The provider handles card processing, KYC, pricing, and crypto delivery
+- The customer receives crypto directly
+- FlowGate receives a separate disclosed fee or partner commission
+- Final provider quotes show the amount paid and expected amount received
+
+Federal and state money-transmission, consumer-protection, tax, and privacy
+requirements depend on how the service operates. Have a qualified lawyer review
+the final business before broad launch.
+
+## Deploy
+
+Replace the existing repository contents with all files in this folder and
+commit:
+
+`Launch transparent FlowGate revenue edition`
+
+Vercel should redeploy automatically.
+
+
+## v4 master attribution changes
+
+- Adds a persistent owner campaign record
+- Decorates approved tracked URLs with FlowGate campaign parameters
+- Makes every hosted copy use the operator project configuration
+- Replaces unrestricted white-label source-code sales with setup + monthly hosted licenses
+- Adds a Hosted License Framework page
+- Adds a master attribution dashboard section
+- Explicitly states that no provider can guarantee commissions forever
+
+Read `MASTER_ATTRIBUTION_SETUP.md` before launch.
+
+
+## v5 changes
+
+- Separates genuine digital-product purchases from crypto purchases
+- Adds accurate merchant-description guidance
+- Adds website privacy mode
+- Adds local receipt and preference deletion
+- Makes clear that provider, bank, and blockchain records remain visible
+- Does not misclassify crypto transactions
+
+Read `PURCHASE_AND_PRIVACY_SETUP.md`.

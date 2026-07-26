@@ -3,316 +3,477 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta
-    name="description"
-    content="A guided route to purchase XCN and move it to the Onyx network."
-  />
-  <meta name="theme-color" content="#070708" />
-  <title>FlowGate XCN — Buy and Bridge XCN</title>
-  <link rel="preconnect" href="https://thirdweb.com" />
+  <meta name="description" content="Buy, swap, and bridge crypto through non-custodial providers with transparent FlowGate pricing." />
+  <meta name="theme-color" content="#080809" />
+  <title>FlowGate — Buy, Swap & Bridge Crypto</title>
   <link rel="stylesheet" href="./styles.css" />
+  <script src="./config.js"></script>
+  <script defer src="https://unpkg.com/thirdweb/dist/scripts/bridge-widget.js"></script>
+  <script defer src="./app.js"></script>
 </head>
 <body>
-  <div class="ambient ambient-one"></div>
-  <div class="ambient ambient-two"></div>
+  <div class="ambient ambient-a"></div>
+  <div class="ambient ambient-b"></div>
 
   <header class="site-header">
-    <a class="brand" href="#top" aria-label="FlowGate XCN home">
-      <span class="brand-mark" aria-hidden="true">
-        <span class="mark-f">F</span><span class="mark-x">X</span>
-      </span>
-      <span>
-        <strong>FlowGate</strong>
-        <small>XCN</small>
-      </span>
+    <a class="brand" href="#top" aria-label="FlowGate home">
+      <span class="brand-mark"><b>F</b><i>G</i></span>
+      <span><strong>FlowGate</strong><small>ONYX ACCESS</small></span>
     </a>
-
-    <nav class="top-nav" aria-label="Main navigation">
-      <a href="#routes">Buy route</a>
-      <a href="https://app.onyx.org/en/bridge" target="_blank" rel="noreferrer">
-        Official bridge ↗
-      </a>
+    <nav>
+      <button class="privacy-toggle" id="privacyToggle" type="button" aria-pressed="false">
+        <span class="privacy-dot"></span>
+        <span class="privacy-label-text">Privacy mode</span>
+      </button>
+      <a href="#trade">Buy & swap</a>
+      <a href="#plus">Plus</a>
+      <a href="#license">White-label</a>
+      <a href="#fees">Fees</a>
     </nav>
   </header>
 
   <main id="top">
     <section class="hero">
-      <div class="hero-copy">
-        <div class="eyebrow">
-          <span class="live-dot"></span>
-          Working guided route
-        </div>
-
-        <h1>Card to XCN.<br />Then onto Onyx.</h1>
-        <p class="hero-text">
-          Direct card-to-native-XCN quotes are not currently available.
-          FlowGate now guides you through supported steps instead of showing
-          a dead checkout.
+      <div>
+        <div class="eyebrow"><span></span> Non-custodial crypto access</div>
+        <h1>Buy crypto.<br />Swap smarter.<br /><em>Keep control.</em></h1>
+        <p class="hero-copy">
+          Use regulated third-party providers to purchase crypto, swap across supported
+          networks, and move XCN toward Onyx. FlowGate never stores card details or
+          takes custody of a customer’s purchased assets.
         </p>
-
         <div class="hero-actions">
-          <a class="primary-button" href="#routes">Start card route</a>
-          <a
-            class="secondary-button"
-            href="https://www.coinbase.com/how-to-buy/onyxcoin"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Buy XCN directly
-          </a>
+          <a class="button primary" href="#trade">Open FlowGate</a>
+          <a class="button secondary" href="#fees">See every fee</a>
         </div>
-
-        <div class="route-strip" aria-label="Card route summary">
-          <div><span>1</span><strong>Buy USDC</strong><small>Ethereum</small></div>
-          <i aria-hidden="true">→</i>
-          <div><span>2</span><strong>Swap to XCN</strong><small>Ethereum</small></div>
-          <i aria-hidden="true">→</i>
-          <div><span>3</span><strong>Bridge XCN</strong><small>Onyx</small></div>
+        <div class="fee-banner">
+          <span>Owner-controlled revenue routing</span>
+          <strong>Every eligible hosted transaction uses the FlowGate operator project</strong>
+          <small>Revenue applies only after the matching provider account, partner agreement, tracked link, or developer fee is active. No program can guarantee commissions forever.</small>
         </div>
       </div>
 
-      <div class="orb-wrap" aria-hidden="true">
-        <div class="orbit orbit-one"></div>
-        <div class="orbit orbit-two"></div>
-        <div class="coin">
-          <span>X</span>
-          <small>ON YX</small>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="ring ring-a"></div>
+        <div class="ring ring-b"></div>
+        <div class="coin"><span>X</span><small>FLOWGATE</small></div>
+        <div class="floating-card card-one"><span>BUY</span><strong>USDC</strong></div>
+        <div class="floating-card card-two"><span>SWAP</span><strong>XCN</strong></div>
+      </div>
+    </section>
+
+    <section class="transaction-clarity" aria-label="Transaction types">
+      <article>
+        <span class="clarity-label product-label">Product purchase</span>
+        <h3>FlowGate Plus</h3>
+        <p>
+          A real purchase of digital software and hosted tools. An approved FlowGate
+          merchant account may use an accurate, recognizable FlowGate descriptor.
+        </p>
+      </article>
+      <article>
+        <span class="clarity-label crypto-label">Crypto purchase</span>
+        <h3>USDC, XCN, XRP, and other assets</h3>
+        <p>
+          Processed and classified by the regulated on-ramp provider. FlowGate cannot
+          rename or disguise it as unrelated retail merchandise.
+        </p>
+      </article>
+      <article>
+        <span class="clarity-label privacy-label">Website privacy</span>
+        <h3>Discreet on-screen display</h3>
+        <p>
+          Privacy mode masks amounts and asset details and can erase locally stored
+          receipts. It does not hide the transaction from a bank or provider.
+        </p>
+      </article>
+    </section>
+
+    <section class="section" id="trade">
+      <div class="section-heading">
+        <div><span class="kicker">Core product</span><h2>Buy and swap crypto</h2></div>
+        <div class="status" id="revenueStatus">Revenue setup required</div>
+      </div>
+
+      <div class="disclosure-box">
+        <strong>Transaction classification:</strong>
+        FlowGate Plus is sold as a separate digital product. Crypto purchases remain
+        crypto purchases and are processed, labeled, and classified by the selected
+        provider. FlowGate does not disguise merchant categories or alter the provider’s
+        statement description.
+      </div>
+
+      <div class="trade-tabs" role="tablist">
+        <button class="trade-tab active" data-tab="buy" role="tab" aria-selected="true">Buy with card</button>
+        <button class="trade-tab" data-tab="swap" role="tab" aria-selected="false">Swap crypto</button>
+        <button class="trade-tab" data-tab="xcn" role="tab" aria-selected="false">Move to Onyx</button>
+      </div>
+
+      <div class="trade-panel active" data-panel="buy">
+        <div class="panel-copy">
+          <span class="step-chip">Provider checkout</span>
+          <h3>Buy USDC or another supported asset</h3>
+          <p>
+            This is a crypto purchase through an independent provider. The provider handles
+            identity checks, fraud screening, merchant classification, card processing,
+            pricing, statement presentation, and delivery. FlowGate does not receive the
+            card number or relabel the charge.
+          </p>
+          <div class="fee-line">
+            <span>Current FlowGate card fee</span>
+            <strong id="cardFeeState">0% — partner approval pending</strong>
+          </div>
+        </div>
+        <div class="widget-frame" id="buyWidgetContainer">
+          <div class="widget-loading">Loading secure card and crypto routes…</div>
+        </div>
+      </div>
+
+      <div class="trade-panel" data-panel="swap" hidden>
+        <div class="panel-copy">
+          <span class="step-chip">Revenue-enabled after setup</span>
+          <h3>Swap USDC into XCN</h3>
+          <p>
+            Once a thirdweb project client ID is connected and the dashboard fee is set,
+            completed crypto swaps can pay FlowGate’s disclosed developer fee.
+          </p>
+          <div class="fee-line">
+            <span>FlowGate developer fee</span>
+            <strong><b data-swap-fee>1.25%</b> of the source amount</strong>
+          </div>
+        </div>
+        <div class="widget-frame" id="swapWidgetContainer">
+          <div class="widget-loading">Loading swap routes…</div>
+        </div>
+      </div>
+
+      <div class="trade-panel" data-panel="xcn" hidden>
+        <div class="onyx-route">
+          <div class="route-step"><span>1</span><div><strong>Buy or hold XCN</strong><small>Usually on Ethereum first</small></div></div>
+          <div class="route-arrow">→</div>
+          <div class="route-step"><span>2</span><div><strong>Open Onyx Bridge</strong><small>Use the official interface</small></div></div>
+          <div class="route-arrow">→</div>
+          <div class="route-step"><span>3</span><div><strong>Receive native XCN</strong><small>Onyx chain ID 327</small></div></div>
+        </div>
+        <div class="action-grid">
+          <a class="action-card" href="https://app.onyx.org/en/swap" target="_blank" rel="noreferrer">
+            <span>Official route</span><strong>Onyx Swap ↗</strong><small>Swap supported Ethereum assets into XCN.</small>
+          </a>
+          <a class="action-card" href="https://app.onyx.org/en/bridge" target="_blank" rel="noreferrer">
+            <span>Official route</span><strong>Onyx Bridge ↗</strong><small>Move supported XCN between Ethereum and Onyx.</small>
+          </a>
+          <button class="action-card copy-contract" type="button">
+            <span>Ethereum XCN</span><strong>Copy contract</strong><small>0xA2cd…fb18</small>
+          </button>
         </div>
       </div>
     </section>
 
-    <section class="route-section" id="routes">
+    <section class="section plus-section" id="plus">
       <div class="section-heading">
+        <div><span class="kicker">Separate digital-product purchase</span><h2>FlowGate Plus</h2></div>
+        <div class="price-pill"><span>$</span><strong data-plus-price>9.99</strong><small>one-time</small></div>
+      </div>
+
+      <div class="plus-grid">
+        <div class="plus-card">
+          <span class="step-chip">Digital toolkit</span>
+          <h3>A genuine software purchase</h3>
+          <p>
+            FlowGate Plus is sold separately from cryptocurrency. The buyer pays for
+            software tools, hosted access, receipt management, and guided planning.
+          </p>
+          <ul>
+            <li>Estimated total-cost calculator</li>
+            <li>Local transaction receipt vault</li>
+            <li>CSV receipt export</li>
+            <li>Advanced safety checklist</li>
+          </ul>
+          <div class="separate-purchase">
+            This is a digital-product purchase. It does not include cryptocurrency or guarantee a successful on-ramp, swap, bridge, or investment result. The processor controls the approved descriptor and merchant classification.
+          </div>
+        </div>
+
+        <div class="checkout-card">
+          <div class="checkout-heading">
+            <span>Purchase digital toolkit</span>
+            <strong><span data-plus-price>9.99</span> USDC on Base</strong>
+          </div>
+          <iframe
+            id="plusCheckout"
+            title="Purchase FlowGate Plus"
+            height="650"
+            width="100%"
+            loading="lazy"
+            allow="payment; clipboard-write; publickey-credentials-get"
+            referrerpolicy="strict-origin-when-cross-origin"
+          ></iframe>
+        </div>
+      </div>
+
+
+      <div class="privacy-controls">
         <div>
-          <span class="section-kicker">Choose your route</span>
-          <h2>How do you want to pay?</h2>
+          <span class="step-chip">Local privacy controls</span>
+          <h3>Keep the screen discreet</h3>
+          <p>
+            Privacy mode masks amounts and asset names on this device. “Erase local data”
+            deletes saved receipts and interface preferences from this browser.
+          </p>
+        </div>
+        <div class="button-row">
+          <button class="button secondary" id="maskScreen" type="button">Enable privacy mode</button>
+          <button class="button danger-button" id="eraseLocalData" type="button">Erase local data</button>
         </div>
       </div>
 
-      <div class="route-tabs" role="tablist" aria-label="Purchase routes">
-        <button class="route-tab active" id="cardTab" data-route="card" role="tab" aria-selected="true">
-          Credit or debit card
-        </button>
-        <button class="route-tab" id="directTab" data-route="direct" role="tab" aria-selected="false">
-          Buy XCN directly
-        </button>
+      <div class="plus-tools locked" id="plusTools">
+        <div class="lock-overlay" id="plusLock">
+          <span>🔒</span>
+          <strong>FlowGate Plus locked</strong>
+          <p>Complete the separate toolkit purchase above to unlock these tools on this device.</p>
+        </div>
+
+        <article class="tool-card">
+          <h3>Fee estimator</h3>
+          <div class="form-grid">
+            <label>Purchase or swap amount
+              <input id="estimateAmount" type="number" min="1" step="0.01" value="100" />
+            </label>
+            <label>Route
+              <select id="estimateRoute">
+                <option value="card">Card on-ramp</option>
+                <option value="swap">Crypto swap</option>
+                <option value="both">Card + crypto swap</option>
+              </select>
+            </label>
+          </div>
+          <div class="estimate-output" id="estimateOutput"></div>
+          <small class="fine-print">Illustration only. The live provider quote and blockchain conditions control actual costs.</small>
+        </article>
+
+        <article class="tool-card">
+          <h3>Save a transaction receipt</h3>
+          <div class="form-grid">
+            <label>Asset<input id="receiptAsset" placeholder="USDC, XCN, XRP…" /></label>
+            <label>Amount<input id="receiptAmount" type="number" min="0" step="any" placeholder="50" /></label>
+            <label>Network<input id="receiptNetwork" placeholder="Ethereum, Base, Onyx…" /></label>
+            <label>Transaction hash<input id="receiptHash" placeholder="0x…" /></label>
+          </div>
+          <div class="button-row">
+            <button class="button primary" id="saveReceipt" type="button">Save receipt</button>
+            <button class="button secondary" id="exportReceipts" type="button">Export CSV</button>
+          </div>
+          <div class="receipt-list" id="receiptList"></div>
+        </article>
+      </div>
+    </section>
+
+
+    <section class="section attribution-section" id="attribution">
+      <div class="section-heading">
+        <div><span class="kicker">Master operator layer</span><h2>One attribution system everywhere</h2></div>
+        <div class="status" id="attributionStatus">Owner routing configured</div>
       </div>
 
-      <section class="route-panel active" id="cardRoute" data-panel="card">
-        <div class="route-intro">
-          <span class="route-badge">3 steps</span>
-          <div>
-            <h3>Card route through Ethereum</h3>
-            <p>
-              Buy Ethereum USDC with an available card provider, swap that USDC
-              to Ethereum XCN, then bridge XCN to Onyx.
-            </p>
-          </div>
-        </div>
-
-        <article class="step-card" data-step="1">
-          <div class="step-header">
-            <span class="step-number">01</span>
-            <div>
-              <span class="step-label">Card purchase</span>
-              <h3>Buy USDC on Ethereum</h3>
-            </div>
-            <button class="complete-button" type="button" data-complete="1">Mark complete</button>
-          </div>
-
-          <div class="step-copy">
-            <p>
-              Connect the wallet that will receive the USDC. In the widget,
-              select <strong>Card</strong> as the payment method and confirm the
-              receiving token says <strong>USDC on Ethereum</strong>.
-            </p>
-            <div class="warning-line">
-              Credit-card acceptance depends on the on-ramp provider and your
-              card issuer. Debit cards are usually more widely supported.
-            </div>
-          </div>
-
-          <div class="widget-shell">
-            <div class="widget-topbar">
-              <div class="window-dots" aria-hidden="true">
-                <span></span><span></span><span></span>
-              </div>
-              <span>Card → Ethereum USDC</span>
-            </div>
-            <iframe
-              title="Buy USDC on Ethereum with a card"
-              src="https://thirdweb.com/bridge/widget?outputCurrency=0xA0b86991c6218b36c1d19d4a2e9eb0ce3606eb48&outputChain=1&currency=USD&theme=dark&persistTokenSelections=false&showThirdwebBranding=true"
-              width="100%"
-              height="760"
-              loading="eager"
-              allow="payment; clipboard-write; publickey-credentials-get"
-              referrerpolicy="strict-origin-when-cross-origin"
-            ></iframe>
-          </div>
-        </article>
-
-        <article class="step-card" data-step="2">
-          <div class="step-header">
-            <span class="step-number">02</span>
-            <div>
-              <span class="step-label">Onyx Swap</span>
-              <h3>Swap Ethereum USDC to XCN</h3>
-            </div>
-            <button class="complete-button" type="button" data-complete="2">Mark complete</button>
-          </div>
-
-          <div class="step-grid">
-            <div class="step-copy">
-              <ol>
-                <li>Open the official Onyx Swap.</li>
-                <li>Select the <strong>Ethereum</strong> network tab.</li>
-                <li>Set <strong>From: USDC</strong>.</li>
-                <li>Set <strong>To: XCN</strong>.</li>
-                <li>Review the quote, network fee, and minimum received.</li>
-              </ol>
-
-              <a
-                class="primary-button wide-button"
-                href="https://app.onyx.org/en/swap"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Open official Onyx Swap ↗
-              </a>
-            </div>
-
-            <div class="contract-box">
-              <span>Official Ethereum XCN contract</span>
-              <code id="xcnContract">0xA2cd3D43c775978A96BdBf12d733D5A1ED94fb18</code>
-              <button class="copy-button" type="button" data-copy="xcnContract">
-                Copy contract
-              </button>
-              <small>Use this only when a wallet asks you to verify the Ethereum XCN token.</small>
-            </div>
-          </div>
-        </article>
-
-        <article class="step-card" data-step="3">
-          <div class="step-header">
-            <span class="step-number">03</span>
-            <div>
-              <span class="step-label">Official bridge</span>
-              <h3>Bridge XCN from Ethereum to Onyx</h3>
-            </div>
-            <button class="complete-button" type="button" data-complete="3">Mark complete</button>
-          </div>
-
-          <div class="step-grid">
-            <div class="step-copy">
-              <ol>
-                <li>Open the official Onyx Bridge.</li>
-                <li>Set <strong>From: Ethereum</strong>.</li>
-                <li>Set <strong>To: Onyx</strong>.</li>
-                <li>Select <strong>XCN</strong>.</li>
-                <li>Connect the same wallet and bridge a small test amount first.</li>
-              </ol>
-
-              <a
-                class="primary-button wide-button"
-                href="https://app.onyx.org/en/bridge"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Open official Onyx Bridge ↗
-              </a>
-            </div>
-
-            <div class="network-box">
-              <div><span>Destination</span><strong>Onyx</strong></div>
-              <div><span>Chain ID</span><strong>327</strong></div>
-              <div><span>Native asset</span><strong>XCN</strong></div>
-              <div><span>Estimated bridge</span><strong>Shown by Onyx</strong></div>
-            </div>
-          </div>
-        </article>
-      </section>
-
-      <section class="route-panel" id="directRoute" data-panel="direct" hidden>
-        <div class="route-intro">
-          <span class="route-badge">Fewer steps</span>
-          <div>
-            <h3>Buy XCN directly on an exchange</h3>
-            <p>
-              Coinbase currently lists XCN in the United States. Its published
-              instructions support a bank account, debit card, wire transfer,
-              and region-dependent PayPal. Coinbase states that credit cards
-              cannot currently be used to purchase XCN.
-            </p>
-          </div>
-        </div>
-
-        <div class="direct-grid">
-          <article class="direct-card">
-            <span>Step 1</span>
-            <h3>Buy XCN</h3>
-            <p>Purchase Onyxcoin using an approved Coinbase payment method.</p>
-            <a
-              class="primary-button wide-button"
-              href="https://www.coinbase.com/how-to-buy/onyxcoin"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Open Coinbase XCN ↗
-            </a>
-          </article>
-
-          <article class="direct-card">
-            <span>Step 2</span>
-            <h3>Withdraw on Ethereum</h3>
-            <p>
-              Send XCN to a self-custody Ethereum wallet you control. Carefully
-              verify the selected withdrawal network and address.
-            </p>
-          </article>
-
-          <article class="direct-card">
-            <span>Step 3</span>
-            <h3>Bridge to Onyx</h3>
-            <p>Use the official Onyx Bridge to move Ethereum XCN onto Onyx.</p>
-            <a
-              class="secondary-button wide-button"
-              href="https://app.onyx.org/en/bridge"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Open Onyx Bridge ↗
-            </a>
-          </article>
-        </div>
-      </section>
-
-      <div class="safety-panel">
-        <div>
-          <span class="safety-icon">!</span>
-          <div>
-            <h3>Before you confirm anything</h3>
-            <p>
-              Start with a small test. Verify every wallet address, token,
-              network, provider fee, swap quote, and bridge destination.
-              FlowGate does not receive funds, store card details, or guarantee
-              provider availability.
-            </p>
-          </div>
-        </div>
-        <button id="resetProgress" class="text-button" type="button">Reset checklist</button>
+      <div class="disclosure-box">
+        <strong>What this means:</strong>
+        every eligible FlowGate route is designed to use the operator’s approved project,
+        partner account, or tracked affiliate URL. Attribution does not create a commission
+        by itself. The applicable provider decides eligibility, tracking duration, payouts,
+        reversals, and termination rights.
       </div>
+
+      <div class="attribution-grid">
+        <article>
+          <span class="revenue-number">A</span>
+          <h3>Card and bank purchases</h3>
+          <p>
+            Hosted copies use the operator’s approved MoonPay or Transak partner integration.
+            The provider records qualifying transactions under that partner account and pays
+            the configured partner fee under its agreement.
+          </p>
+          <strong class="attribution-rule">Master provider account retained</strong>
+        </article>
+        <article>
+          <span class="revenue-number">B</span>
+          <h3>Crypto swaps</h3>
+          <p>
+            All hosted copies use the operator-controlled thirdweb project. Its public,
+            disclosed developer fee applies to eligible completed swaps while the project
+            and fee setting remain active.
+          </p>
+          <strong class="attribution-rule">Master thirdweb project retained</strong>
+        </article>
+        <article>
+          <span class="revenue-number">C</span>
+          <h3>Exchange referrals</h3>
+          <p>
+            Exchange buttons use the operator’s approved tracked links. Coinbase currently
+            limits its standard affiliate commission to the referred customer’s first three
+            months, so this route is not lifetime revenue.
+          </p>
+          <strong class="attribution-rule">Tracked URL required</strong>
+        </article>
+        <article>
+          <span class="revenue-number">D</span>
+          <h3>Hosted customer copies</h3>
+          <p>
+            Branded customers receive a hosted license rather than unrestricted source code.
+            Their copy retains “Powered by FlowGate,” the operator project, and recurring
+            platform billing for as long as the service remains active.
+          </p>
+          <strong class="attribution-rule">Setup + monthly license</strong>
+        </article>
+      </div>
+
+      <div class="attribution-ledger">
+        <div><span>Owner campaign</span><strong id="ownerCampaignDisplay">flowcontrol-flowgate</strong></div>
+        <div><span>Browser attribution</span><strong id="browserAttributionDisplay">Active</strong></div>
+        <div><span>Provider attribution</span><strong id="providerAttributionDisplay">Credentials required</strong></div>
+        <div><span>Guarantee</span><strong>None—provider terms control</strong></div>
+      </div>
+    </section>
+
+    <section class="section" id="revenue">
+      <div class="section-heading">
+        <div><span class="kicker">Revenue stack</span><h2>How FlowGate earns</h2></div>
+      </div>
+      <div class="revenue-grid">
+        <article>
+          <span class="revenue-number">01</span>
+          <h3>Swap developer fee</h3>
+          <p><b data-swap-fee>1.25%</b> on completed crypto-to-crypto swaps after the thirdweb project and dashboard setting are activated.</p>
+          <span class="state" id="swapRevenueState">Setup needed</span>
+        </article>
+        <article>
+          <span class="revenue-number">02</span>
+          <h3>On-ramp partner fee</h3>
+          <p>Planned <b data-partner-fee>1.50%</b> disclosed fee only after approval by MoonPay, Transak, or another contracted provider.</p>
+          <span class="state" id="partnerRevenueState">Approval needed</span>
+        </article>
+        <article>
+          <span class="revenue-number">03</span>
+          <h3>FlowGate Plus</h3>
+          <p>A separate <b><span data-plus-price>9.99</span> USDC</b> digital-toolkit purchase paid directly to the configured revenue wallet.</p>
+          <span class="state active-state">Built in</span>
+        </article>
+        <article>
+          <span class="revenue-number">04</span>
+          <h3>Affiliate commissions</h3>
+          <p>Approved exchange and partner links can generate tracked commissions. Affiliate relationships are disclosed near every link.</p>
+          <span class="state" id="affiliateRevenueState">Approval needed</span>
+        </article>
+      </div>
+
+      <div class="partner-links">
+        <a id="coinbaseLink" href="https://www.coinbase.com/affiliates" target="_blank" rel="sponsored noreferrer">
+          <strong>Coinbase affiliate</strong><small>Application or approved tracked link ↗</small>
+        </a>
+        <a id="moonpayLink" href="https://support.moonpay.com/en/articles/694185-partner-onboarding-overview-from-signup-to-going-live" target="_blank" rel="sponsored noreferrer">
+          <strong>MoonPay partner</strong><small>Partner onboarding and fee controls ↗</small>
+        </a>
+        <a id="transakLink" href="https://docs.transak.com/docs/setup-your-partner-account" target="_blank" rel="sponsored noreferrer">
+          <strong>Transak partner</strong><small>KYB, API keys, and production integration ↗</small>
+        </a>
+      </div>
+      <p class="affiliate-disclosure">Disclosure: FlowGate may earn compensation from approved affiliate or partner links at no additional cost unless a separate fee is clearly displayed.</p>
+    </section>
+
+    <section class="section" id="license">
+      <div class="section-heading">
+        <div><span class="kicker">Recurring hosted revenue</span><h2>License branded FlowGate portals</h2></div>
+      </div>
+      <p class="license-intro">
+        Sell hosted branded portals to token communities, wallets, creators, and blockchain projects.
+        Buyers receive branding and access—not unrestricted source code. The FlowGate operator project,
+        attribution layer, and recurring license remain attached and are disclosed in the service agreement.
+      </p>
+      <div class="license-grid">
+        <article>
+          <span>Starter Hosted</span>
+          <h3>$<b data-license="starterSetup">299</b> <small>setup</small></h3>
+          <strong class="monthly-price">$<b data-license="starterMonthly">49</b>/month</strong>
+          <ul>
+            <li>Brand and color customization</li>
+            <li>Hosted buy and swap interface</li>
+            <li>Master FlowGate attribution retained</li>
+          </ul>
+          <button class="button secondary license-inquiry" data-tier="Starter Hosted" data-license-key="starter" type="button">Request Starter</button>
+        </article>
+        <article class="featured">
+          <span>Pro Hosted</span>
+          <h3>$<b data-license="proSetup">799</b> <small>setup</small></h3>
+          <strong class="monthly-price">$<b data-license="proMonthly">99</b>/month</strong>
+          <ul>
+            <li>Everything in Starter</li>
+            <li>Affiliate and partner configuration</li>
+            <li>Custom legal-page branding</li>
+            <li>Revenue and conversion reporting plan</li>
+          </ul>
+          <button class="button primary license-inquiry" data-tier="Pro Hosted" data-license-key="pro" type="button">Request Pro</button>
+        </article>
+        <article>
+          <span>Network Hosted</span>
+          <h3>$<b data-license="networkSetup">1,999</b> <small>setup</small></h3>
+          <strong class="monthly-price">$<b data-license="networkMonthly">249</b>/month</strong>
+          <ul>
+            <li>Multiple token and network routes</li>
+            <li>Custom domain deployment</li>
+            <li>Priority integration support</li>
+            <li>Master FlowGate platform layer retained</li>
+          </ul>
+          <button class="button secondary license-inquiry" data-tier="Network Hosted" data-license-key="network" type="button">Request Network</button>
+        </article>
+      </div>
+      <div class="license-note" id="licenseNote">
+        Configure a support email and written hosted-license agreement before accepting orders. Never promise permanent commissions; service and revenue continue only while subscriptions and provider agreements remain active.
+      </div>
+    </section>
+
+    <section class="section" id="fees">
+      <div class="section-heading">
+        <div><span class="kicker">No hidden spread</span><h2>Fee schedule</h2></div>
+      </div>
+      <div class="fee-table" role="table" aria-label="FlowGate fee schedule">
+        <div class="fee-row fee-head" role="row"><span>Charge</span><span>Amount</span><span>Who receives it</span></div>
+        <div class="fee-row" role="row"><span>FlowGate swap developer fee</span><strong><b data-swap-fee>1.25%</b></strong><span>FlowGate revenue wallet</span></div>
+        <div class="fee-row" role="row"><span>FlowGate on-ramp partner fee</span><strong><b data-partner-fee>1.50%</b> planned</strong><span>FlowGate under provider agreement</span></div>
+        <div class="fee-row" role="row"><span>thirdweb swap protocol fee</span><strong>0.30%</strong><span>thirdweb</span></div>
+        <div class="fee-row" role="row"><span>Card/on-ramp provider fee</span><strong>Shown in live quote</strong><span>Selected provider</span></div>
+        <div class="fee-row" role="row"><span>Network/gas and liquidity costs</span><strong>Variable</strong><span>Network and route participants</span></div>
+        <div class="fee-row" role="row"><span>FlowGate Plus digital product</span><strong><span data-plus-price>9.99</span> USDC</strong><span>FlowGate revenue wallet</span></div>
+        <div class="fee-row" role="row"><span>Merchant description</span><strong>Accurate and recognizable</strong><span>Payment processor / merchant account</span></div>
+      </div>
+      <p class="fine-print">
+        A customer must see the final amount paid, estimated amount received, and all provider-disclosed charges before confirming. FlowGate does not guarantee a fixed exchange rate or investment outcome.
+      </p>
     </section>
   </main>
 
   <footer>
-    <div>
-      <strong>FlowGate XCN</strong>
-      <span>Non-custodial guided access to Onyx.</span>
-    </div>
-    <p>Independent project. Not affiliated with Onyx, thirdweb, or Coinbase.</p>
+    <div><strong>FlowGate</strong><span>Independent, non-custodial crypto access software.</span></div>
+    <nav>
+      <a href="./fees.html">Fee disclosure</a>
+      <a href="./terms.html">Terms</a>
+      <a href="./privacy.html">Privacy</a>
+      <a href="./risk.html">Risk</a>
+      <a href="./refund.html">Refunds</a>
+      <a href="./hosted-license.html">Hosted license</a>
+    </nav>
   </footer>
 
+  <dialog id="licenseDialog">
+    <button class="dialog-close" type="button" aria-label="Close">×</button>
+    <span class="step-chip">White-label request</span>
+    <h3 id="licenseDialogTitle">Request FlowGate</h3>
+    <p id="licenseDialogCopy"></p>
+    <div class="button-row">
+      <a class="button primary" id="licenseEmailButton" href="#">Open email</a>
+      <button class="button secondary" id="copyLicenseRequest" type="button">Copy request</button>
+    </div>
+  </dialog>
+
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="./app.js"></script>
 </body>
 </html>
